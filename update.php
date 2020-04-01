@@ -13,7 +13,6 @@ while($row = mysqli_fetch_array($result)) {
     $list = $list . "<li><a href=\"index.php?id={$row['id']}\">{$escaped_title}</a></li>";
 }
 
-//기본 값
 $article = array(
     'title'=>'Welcome',
     'description'=>'Hello, web'
@@ -27,7 +26,6 @@ if(isset($_GET['id'])){
     $article['title'] = htmlspecialchars($row['title']);
     $article['description'] = htmlspecialchars($row['description']);
 
-//  update_link 변수에 아이디 값이 있다면 얘를 보여줌
     $update_link = '<a href="update.php?id='.$_GET['id'].'">update</a>';
 //
 }
@@ -43,8 +41,9 @@ if(isset($_GET['id'])){
 <ol>
     <?=$list?>
 </ol>
-<form action="process_create.php" method="post">
-                      <!--  글을 수정하려면 내용이 불려져있어야함  -->
+<form action="process_update.php" method="post">
+                <!-- 누구를 업데이트 할 것인가에 대한 정보 필요 -->
+    <input type="hidden" name="id" value="<?=$_GET['id']?>'" >
     <p><input type="text" name="title" placeholder="title" value="<?=$article['title']?>"></p>
     <p><textarea name="description" placeholder="description"><?=$article['description']?></textarea></p>
     <p><input type="submit"></p>
