@@ -28,7 +28,8 @@ if(isset($_GET['id'])){
     $article['description'] = htmlspecialchars($row['description']);
 
 //  update_link 변수에 아이디 값이 있다면 얘를 보여줌
-   $update_link = '<a href="update.php?id='.$_GET['id'].'">update</a>';
+    $update_link = '<a href="update.php?id='.$_GET['id'].'">update</a>';
+//
 }
 ?>
 <!doctype html>
@@ -42,10 +43,11 @@ if(isset($_GET['id'])){
 <ol>
     <?=$list?>
 </ol>
-<a href="create.php">create</a>
-<!--누굴 업데이트할것인가 정해줘야함(파라미터형식)-->
-<?=$update_link?>
-<h2><?=$article['title']?></h2>
-<?=$article['description']?>
+<form action="process_create.php" method="post">
+                      <!--  글을 수정하려면 내용이 불려져있어야함  -->
+    <p><input type="text" name="title" placeholder="title" value="<?=$article['title']?>"></p>
+    <p><textarea name="description" placeholder="description"><?=$article['description']?></textarea></p>
+    <p><input type="submit"></p>
+</form>
 </body>
 </html>
