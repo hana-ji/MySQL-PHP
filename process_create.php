@@ -8,20 +8,20 @@ $conn = mysqli_connect(
 
 $filtered = array(
     'title'=>mysqli_real_escape_string($conn, $_POST['title']),
-    'description'=>mysqli_real_escape_string($conn, $_POST['description'])
+    'description'=>mysqli_real_escape_string($conn, $_POST['description']),
+    'author_id'=>mysqli_real_escape_string($conn, $_POST['author_id'])
 );
 
 $sql = "
     INSERT INTO topic
-    (title, description, created)
+    (title, description, created, author_id)
     VALUES(
         '{$filtered['title']}',
         '{$filtered["description"]}',
-        NOW()
+        NOW(),
+        {$filtered['author_id']}
     )
 ";
-//접속 된 데이터베이스 서버로 sql문 전송
-//첫 번째 자리엔 데이터베이스 접속 정보를 담고있는 변수를 적어야함
 $result = mysqli_query($conn, $sql);
 if($result === false){
     echo '저장하는 과정에서 문제가 생겼습니다.';

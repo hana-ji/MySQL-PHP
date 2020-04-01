@@ -23,12 +23,9 @@ $delete_link = '';
 $author= '';
 if(isset($_GET['id'])){
     $filtered_id = mysqli_real_escape_string($conn, $_GET['id']);
-//    author_id의 값과 id의 값이 같다는게 중요 포인트
     $sql = "SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.id WHERE topic.id={$filtered_id}";
     $result = mysqli_query($conn, $sql);
-//    echo mysqli_error($conn); 에러확인
     $row = mysqli_fetch_array($result);
-//    print_r($row); $row에 어떤 값이 들어오는지 보기 (name 필요햐서 확인후 적음)
     $article['title'] = htmlspecialchars($row['title']);
     $article['description'] = htmlspecialchars($row['description']);
     $article['name'] = htmlspecialchars($row['name']);
@@ -56,7 +53,6 @@ if(isset($_GET['id'])){
 </ol>
 <a href="create.php">create</a>
 <?=$update_link?>
-<!--클릭하면 바로 삭제되-->
 <?=$delete_link?>
 <h2><?=$article['title']?></h2>
 <?=$article['description']?>
