@@ -19,6 +19,7 @@ $article = array(
     'description'=>'Hello, web'
 );
 $update_link = '';
+$delete_link = '';
 if(isset($_GET['id'])){
     $filtered_id = mysqli_real_escape_string($conn, $_GET['id']);
     $sql = "SELECT * FROM topic WHERE id={$filtered_id}";
@@ -27,8 +28,14 @@ if(isset($_GET['id'])){
     $article['title'] = htmlspecialchars($row['title']);
     $article['description'] = htmlspecialchars($row['description']);
 
-//  update_link 변수에 아이디 값이 있다면 얘를 보여줌
    $update_link = '<a href="update.php?id='.$_GET['id'].'">update</a>';
+   $delete_link = '
+     <form action="process_delete.php" method="post" >
+        <input type="hidden" name="id" value="'.$_GET['id'].'">
+        <input type="submit" value="delete">
+     </form>
+   ';
+
 }
 ?>
 <!doctype html>
@@ -43,8 +50,9 @@ if(isset($_GET['id'])){
     <?=$list?>
 </ol>
 <a href="create.php">create</a>
-<!--누굴 업데이트할것인가 정해줘야함(파라미터형식)-->
 <?=$update_link?>
+<!--클릭하면 바로 삭제되-->
+<?=$delete_link?>
 <h2><?=$article['title']?></h2>
 <?=$article['description']?>
 </body>
